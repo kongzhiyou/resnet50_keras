@@ -6,14 +6,14 @@ import glob
 # Path to the full data directory, not categorised into train/val/test sets or category folders
 #original_dataset_dir = '/home/pinlan/intern/train'
 #original_dataset_dir = '/Users/peter/data/sinho/train'
-original_dataset_dir = '/Users/peter/Desktop/coca'
+original_dataset_dir = '/Users/peter/data/wljr/data/classification'
 # The directory where we will store our dataset, divided into train/val/test directories, and further into category directories
 base_dir = 'data'
 
 categories = []
 
 #dir = glob.glob('/home/pinlan/intern/*')
-dir = glob.glob('/Users/peter/data/sinho/train/*')
+dir = glob.glob('/Users/peter/data/wljr/data/classification/*')
 
 for cag in dir:
     a = cag.split('/')[-1]
@@ -46,7 +46,7 @@ for cat in categories:
     list_of_images = np.array(os.listdir(os.path.join(original_dataset_dir,cat)))
     print("{}: {} files".format(cat, len(list_of_images)))
     indexes = dict()
-    indexes['validation'] = sorted(np.random.choice(len(list_of_images), size=5, replace=False))
+    indexes['validation'] = sorted(np.random.choice(len(list_of_images), size=15, replace=False))
     indexes['train'] = list(set(range(len(list_of_images))) - set(indexes['validation']))
     for phase in str_train_val:
         for i, fname in enumerate(list_of_images[indexes[phase]]):
