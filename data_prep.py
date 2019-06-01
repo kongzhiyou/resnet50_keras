@@ -4,7 +4,7 @@ import os
 import glob
 from keras.applications.imagenet_utils import preprocess_input
 import pickle
-
+import PIL.Image as Image
 '''
 处理分类数据将分类信息转换成"独热码"
 '''
@@ -25,6 +25,20 @@ def process_image(image,image_path):
 
 global img_arr_random
 global annotations_random
+
+
+def rm_error_image():
+    data_path = 'data/train'
+    sku_list = glob.glob(data_path+'/*')
+    for sku in sku_list:
+        print(sku)
+        image_list = glob.glob(sku+'/*')
+        for image in image_list:
+            try:
+                Image.open(image)
+            except:
+                print(image)
+                os.remove(image)
 
 
 
@@ -56,3 +70,6 @@ def data_generator(data_pickle_file, dataset,  batch_size=32):
 
 
 
+if __name__ == '__main__':
+
+    rm_error_image()
